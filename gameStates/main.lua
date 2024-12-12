@@ -1,7 +1,7 @@
 local thisState = {}
 
 function thisState.load()
-    changeGameState("test")
+    changeGameState("game")
 end
 
 return thisState

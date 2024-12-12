@@ -3,6 +3,8 @@ json = require("lib/json")
 require("lib/loveExpanded")
 require("lib/colors")
 
+globalTick = 0
+
 love.window.updateMode(nil,nil,{vSync = false, resizable = true, msaa = 4})
 
 gameStates = {}
@@ -36,11 +38,22 @@ function love.load()
 end
 
 function love.update(dt)
+    globalTick = globalTick + 1
+    local startTime = love.timer.getTime()
     currentGameState.update(dt)
+    gmUpdateTime  = (love.timer.getTime() - startTime) * 1000
+    if globalTick % 60 == 0 then
+        print("Updt: "..gmUpdateTime)
+    end
 end
 
 function love.draw()
+    local startTime = love.timer.getTime()
     currentGameState.draw()
+    gmDrawTime  = (love.timer.getTime() - startTime) * 1000
+    if globalTick % 60 == 0 then
+        print("Draw: "..gmDrawTime)
+    end
 end
 
 function love.mousepressed(x, y, button, istouch, presses)
